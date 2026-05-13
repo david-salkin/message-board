@@ -1,6 +1,7 @@
 .git
 .devcontainer
 **/*.pyc
-__pycache__
+__pycache__/
 .venv
 .vscode
+.env

@@ -1,0 +1,9 @@
+pytest
+pydantic
+pytest-asyncio
+fastapi
+uvicorn[standard]
+sqlmodel
+aiosqlite
+python-jose[cryptography]
+passlib[bcrypt]
