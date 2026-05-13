@@ -1,4 +1,4 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # environment variables will ioverride these hard settings
 class Settings(BaseSettings):
@@ -9,8 +9,6 @@ class Settings(BaseSettings):
     app_name: str = "message-board"
     debug: bool = False
 
-    class Config:
-        env_file = ".env"
-
+    model_config = SettingsConfigDict(env_file=".env")
 
 cfg_settings = Settings()

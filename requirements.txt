@@ -1,5 +1,6 @@
 pytest
-pydantic
+pydantic>=2.0.0
+pydantic-settings
 pytest-asyncio
 fastapi
 uvicorn[standard]
