@@ -10,8 +10,8 @@ from app.api.routes import router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await init_db() 
-    yield  # DB is serving
+	await init_db() 
+	yield  # DB is serving
 
 
 configure_logging()
@@ -23,16 +23,16 @@ app = FastAPI(title=cfg_settings.app_name, lifespan=lifespan)
 # Middleware
 app.middleware("http")(logging_middleware)  # pass decorator, wraps all requests
 app.add_middleware(GZipMiddleware, minimum_size=1000)  # pass class
-app.include_router(router=router)
+app.include_router(router=router) 
 
-
+#---- Application-level endpoints ----
 @app.get("/")
 async def root():
-    return {"message": "Message Board API running"}
+	return {"message": "Message Board API running"}
 
 
 @app.get("/health")
 async def health():
-    return {"ok": True}
+	return {"ok": True}
 
 

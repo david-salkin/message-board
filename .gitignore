@@ -13,5 +13,6 @@ __pycache__/
 .env
 
 .devcontainer/
-
+*.db
+*.sqlite3
 
