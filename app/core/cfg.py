@@ -14,12 +14,12 @@ class Settings(BaseSettings):
 	app_name: str = "message-board"
 	debug: bool = False
 	sql_debug: bool = False
+	DATABASE_URL: str = "sqlite+aiosqlite:///./database.db"
 
-	model_config = SettingsConfigDict(env_file=env_path)
 
 cfg_settings = Settings()
 
-# CRITICAL
+# Critical that SECRET_KEY is set in env
 if not cfg_settings.SECRET_KEY:
 	raise ValueError(
 		f"SECRET_KEY is empty! Check if {env_path} exists and contains 'SECRET_KEY=your_secret'")

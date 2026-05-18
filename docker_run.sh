@@ -20,6 +20,7 @@ echo "🚀 Booting up container..."
 docker run -d \
     --name "${CONTAINER_NAME}" \
     -p "${PORT}":8000 \
+    -e PYTHONPATH=/app \
     -e SECRET_KEY="${RUNTIME_SECRET}" \
     -e ACCESS_TOKEN_EXPIRE_MINUTES=60 \
     -e DATABASE_URL="sqlite+aiosqlite:///app/database.db" \

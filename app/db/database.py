@@ -1,11 +1,13 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
+# StaticPool makes the in-memory SQLite connection persistent across sessions
+# :memory: creates a separate database for each connection
+from sqlalchemy.pool import StaticPool
 from typing import AsyncGenerator
 from sqlmodel import SQLModel
 from app.core.cfg import cfg_settings
 
-DB_URL = "sqlite+aiosqlite:///./database.db"  # aiosqlite for async driver
 
-engine = create_async_engine(DB_URL, echo=cfg_settings.sql_debug, connect_args={"check_same_thread": False})
+engine = create_async_engine(cfg_settings.DATABASE_URL, echo=cfg_settings.sql_debug, connect_args={"check_same_thread": False}, poolclass=StaticPool)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 async def init_db():
