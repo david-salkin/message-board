@@ -2,8 +2,7 @@ import pytest
 from httpx import AsyncClient
 from uuid import uuid4
 
-# Mark every test in that file with @pytest.mark.asyncio which allows us to use await
-pytestmark = pytest.mark.asyncio
+pytestmark = pytest.mark.asyncio  # mark each test with @pytest.mark.asyncio which allows us to use await
 
 
 async def test_register_and_login(client: AsyncClient):
