@@ -22,8 +22,8 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__trunca
 
 """
 Note on Swagger UI (http://localhost:8000/docs): the Authorize button targets the `/login route using standard OAuth2 Form data. 
-FastAPI validates the credentials against the hashed database entry, generates a JWT, and passes it back to Swagger which. 
-the places this token in browser memory, which unlocks the padlock icons next to the endpoints. 
+FastAPI validates the credentials against the hashed database entry, generates a JWT, and passes it back to Swagger which
+then places this token in browser memory, which unlocks the padlock icons next to the endpoints.
 """
 class TokenData(BaseModel):
 	sub: str  # ignore all other fields in the token because only sub is required

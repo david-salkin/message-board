@@ -1,5 +1,3 @@
-from pyexpat.errors import messages
-
 from fastapi import HTTPException
 from sqlmodel import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -28,7 +26,7 @@ async def get_all_messages(session: AsyncSession) -> list[MessageReadResponse]:
 	statement = select(Message).options(joinedload(cast(InstrumentedAttribute, Message.author)))
 	rv = await session.execute(statement)
 	
-	# responses contains a  list of Message Database Objects.
+	# responses contains a list of Message Database Objects.
 	# Each one has a property called .author which contains a full User Database Object.
 	responses = list(rv.scalars().all())  # TODO: remove list() and test
 	messages: list[MessageReadResponse] = []
