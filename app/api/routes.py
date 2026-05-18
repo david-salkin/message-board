@@ -21,7 +21,6 @@ async def register(user_in: UserCreateRequest, session: AsyncSession = Depends(g
 
 @router.post("/login")
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), session: AsyncSession = Depends(get_db_session)):
-
 	"""
 	Log in with username and password to receive an access token.
 	"""
@@ -96,7 +95,6 @@ async def vote_for_message(
     current_user: User = Depends(security.get_current_user)
 ):
     """
-    Pass upvote as {"is_upvote": true}
-	Pass downvote as {"is_upvote": false}
+    Pass upvote as {"is_upvote": true}, else downvote
     """
     return await message_service.process_vote(session, message_id, vote_data.is_upvote)

@@ -5,11 +5,11 @@ set -e
 IMAGE_NAME="messageboard-app"
 TAG="latest"
 
-echo "⚙️  Starting Docker Build..."
+echo "Starting Docker Build..."
 
-# Build the container cleanly, removing intermediate containers
+# Remove intermediate containers
 docker build \
-    --no-cache \
-    -t "${IMAGE_NAME}:${TAG}" .
+	--no-cache \
+	-t "${IMAGE_NAME}:${TAG}" .
 
-echo "✅ Image '${IMAGE_NAME}:${TAG}' built successfully."
+echo "Image '${IMAGE_NAME}:${TAG}' built successfully."

@@ -7,6 +7,7 @@ from sqlalchemy.orm import joinedload, InstrumentedAttribute
 from app.db.model import MessageCreateRequest, Message, MessageReadResponse, MessageUserResponse, UserPublic
 from typing import cast
 
+
 async def create_message(session: AsyncSession, msg_req: MessageCreateRequest, user_id: int) -> Message:
 	"""
 		Accepts the Data Transfer Object and the user_id which was extracted by the router.
@@ -79,7 +80,7 @@ async def get_user_messages(session: AsyncSession, user_id: int) -> list[Message
 async def delete_user_message(session: AsyncSession, message_id: int, user_id: int):
 	
 	# Matches both the id and the owner
-	statement = select(Message).where(cast(Any, Message.id == message_id), cast(Any, Message.user_id == user_id))
+	statement = select(Message).where((Message.id == message_id), (Message.user_id == user_id))
 	result = await session.execute(statement)
 	message = result.scalar_one_or_none()
 

@@ -20,6 +20,11 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login") # tells FastAPI to look for the token at the /login endpoint
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__truncate_error=False)  # truncate password but sdon't crash
 
+"""
+Note on Swagger UI (http://localhost:8000/docs): the Authorize button targets the `/login route using standard OAuth2 Form data. 
+FastAPI validates the credentials against the hashed database entry, generates a JWT, and passes it back to Swagger which. 
+the places this token in browser memory, which unlocks the padlock icons next to the endpoints. 
+"""
 class TokenData(BaseModel):
 	sub: str  # ignore all other fields in the token because only sub is required
 
@@ -49,7 +54,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session: AsyncSe
 
 	if not user:
 		raise HTTPException(status_code=401, detail="User not found")
-		
+	
 	return user
 
 
