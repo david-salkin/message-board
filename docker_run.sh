@@ -13,7 +13,7 @@ if [ "$(docker ps -aq -f name=${CONTAINER_NAME})" ]; then
 fi
 
 # 2. Dynamically generate a secure key using python (guaranteed cross-platform)
-echo "🔐 Generating temporary runtime SECRET_KEY..."
+echo "Generating temporary runtime SECRET_KEY..."
 RUNTIME_SECRET=$(python3 -c "import secrets; print(secrets.token_urlsafe(32))")
 
 echo "🚀 Booting up container..."
@@ -26,5 +26,5 @@ docker run -d \
     -e DATABASE_URL="sqlite+aiosqlite:///app/database.db" \
     "${IMAGE_NAME}:${TAG}"
 
-echo "📡 Container running at http://localhost:${PORT}"
-echo "📝 Run 'docker logs -f ${CONTAINER_NAME}' to view runtime logs."
+echo "Container running at http://localhost:${PORT}"
+echo "Run 'docker logs -f ${CONTAINER_NAME}' to view runtime logs."

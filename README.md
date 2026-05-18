@@ -41,21 +41,28 @@ You can run, test, and develop using three strategies depending on your toolchai
 ### Strategy A: Automated Docker Scripts
 The repository includes three production-grade utility scripts that handle image builds, container lifecycles, and cryptographic security initialization automatically.
 
-1.  **Build the Image:**
-    ```bash
-    ./docker_build.sh
-    ```
-2.  **Run server:**
-    
-    ```bash
-    ./docker_run.sh
-    ```
-    *The API is at `http://localhost:8000`. You can access the interactive documentation at `http://localhost:8000/docs`.*
-3.  **Run the Test Suite:**
-    ```bash
-    ./docker_test.sh
-    ```
-    *This runs the test suite inside an isolated container using an in-memory SQLite instance.*
+1. **Build the Image:**
+   ```bash
+   ./docker_build.sh
+   ```
+
+2. **Run the Test Suite:**
+
+   ```bash
+   ./docker_test.sh
+   ```
+
+   *This runs the test suite inside an isolated container using an in-memory SQLite instance.*
+
+3. **Run server:**
+
+   ```bash
+   ./docker_run.sh
+   docker logs -f messageboard-prod
+   # to stop:
+   docker stop messageboard-prod
+   ```
+   *The API is at `http://localhost:8000`. You can access the interactive documentation at `http://localhost:8000/docs`.*
 
 ### Strategy B: Swagger UI Manual Testing Workflow
 
@@ -63,17 +70,24 @@ Follow this sequence to test endpoints (because the Swagger application enforces
 
 ### Step 1: Initialize the Session
 1. Boot the application using `./docker_run.sh` and navigate to `http://localhost:8000/docs`
-2. Locate the green **Authorize** button at the top right of the page
+2. If you don’t already have a user, call `POST /register`
+   - Provide `username` and `password`
+   - Submit and confirm `201 Created`
+3. Locate the green **Authorize** button at the top right of the page
 
 ### Step 2: Acquire the Bearer Token
-1. Click the **Authorize** button to open the login modal.
-2. Enter a valid user's credentials (or create one first using the `POST /users` registration endpoint).
+1. Locate and click on the green **Authorize** button at the top right of the page
+2. Enter a valid user's credentials
 3. Click **Authorize**. 
 
 ### Step 3: Execute Protected Actions
 1. Scroll down to the `POST /messages` route.
 2. Click **Try it out**, fill in the message payload, and click **Execute**.
-3. Verify the server returns a `201 Created` status code, showing that your `current_user.id` was successfully extracted from the payload signature and linked to the message model.
+3. Verify the server returns a `201 Created` status code.
+
+Note: a manual flow (without Authorize) can be executed by running /login, copying the `access_token` from the response and sending `POST /messages` with header:
+
+- `Authorization: Bearer <access_token>`
 
 ### Strategy C: Developing inside VS Code DevContainers
 
