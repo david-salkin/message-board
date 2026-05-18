@@ -8,8 +8,8 @@ pytestmark = pytest.mark.asyncio
 
 async def test_register_and_login(client: AsyncClient):
 	# Test Registration
-	username = f"testuser_{uuid4().hex[:8]}"
-	password = "securepassword123"
+	username = f"tstuser_{uuid4().hex[:8]}"
+	password = "qwerty123"
 	reg_payload = {"username": username, "password": password}
 	response = await client.post("/register", json=reg_payload)
 	assert response.status_code == 201
@@ -50,7 +50,7 @@ async def test_voting_logic(client: AsyncClient):
 	headers = {"Authorization": f"Bearer {token}"}
 	
 	# Create a message to vote on
-	msg = await client.post("/messages", json={"content": "Vote for me"}, headers=headers)
+	msg = await client.post("/messages", json={"content": "Shameful and pathetic behaviour!"}, headers=headers)
 	msg_id = msg.json()["id"]
 	
 	vote_payload = {"is_upvote": True}
@@ -63,7 +63,7 @@ async def test_user_messages_excludes_vote_count(client: AsyncClient):
 	headers = {"Authorization": f"Bearer {token}"}
 
 	# Create a message owned by the current user
-	msg = await client.post("/messages", json={"content": "User message vote count test"}, headers=headers)
+	msg = await client.post("/messages", json={"content": "RIP my favorite violinist"}, headers=headers)
 	assert msg.status_code == 201
 	msg_id = msg.json()["id"]
 
