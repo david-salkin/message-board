@@ -1,12 +1,16 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field
 import os
 
-cwd = os.path.dirname(os.path.abspath(__file__))
-env_path = os.path.join(cwd, "..", "..", ".env")  # core -> app -> root
+model_config_dict = SettingsConfigDict(
+    env_file=os.path.join(os.path.dirname(__file__), "..", "..", ".env"),
+    env_file_encoding="utf-8",
+    extra="ignore" # allows .env file to have extra variables without causing Pydantic crash
+)
 
-# environment variables will ioverride these hard settings
+# environment will override these settings
 class Settings(BaseSettings):
+
+	model_config = model_config_dict
 
 	SECRET_KEY: str = ""  # keep pylance happy but check it below
 	ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
@@ -21,5 +25,4 @@ cfg_settings = Settings()
 
 # Critical that SECRET_KEY is set in env
 if not cfg_settings.SECRET_KEY:
-	raise ValueError(
-		f"SECRET_KEY is empty! Check if {env_path} exists and contains 'SECRET_KEY=your_secret'")
+	raise ValueError("SECRET_KEY is empty! Check your root .env file mapping initialization contexts.")
