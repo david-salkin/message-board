@@ -1,6 +1,6 @@
 # Message Board Application
 
-An asynchronous message board application. This repository was developed as a take-home assessment for recruitment evaluation.
+A high-performance, asynchronous message board application. This repository was developed as a take-home assessment for recruitment evaluation.
 
 ---
 
@@ -36,7 +36,7 @@ Before running the application, ensure your environment meets the following requ
 
 ## Execution Workflows
 
-You can run, test, and develop using three strategies depending on your toolchain:
+You can run, test, and develop using four strategies (depending on your toolchain):
 
 ### Strategy A: Automated Docker Scripts
 The repository includes three production-grade utility scripts that handle image builds, container lifecycles, and cryptographic security initialization automatically.
@@ -111,6 +111,7 @@ If you prefer to execute the application directly on your host machine's command
 
 1.  **Create and Activate a Virtual Environment:**
     ```bash
+    # Prerequisites: Python 3.11 or higher
     python3 -m venv .venv
     source .venv/bin/activate  # On Windows: .\.venv\Scripts\activate
     ```
@@ -120,14 +121,15 @@ If you prefer to execute the application directly on your host machine's command
     pip install -r requirements.txt
     ```
 3.  **Set Required Environment Variables & Launch:**
-    Because the application protects against structural key leakage, you must export your runtime variables directly to your shell session before starting the engine:
-    ```bash
-    # Linux / macOS / Git Bash
-    export SECRET_KEY=$(python3 -c "import secrets; print(secrets.token_urlsafe(32))")
-    # Or
-    python3.11 -c "import secrets; print('SECRET_KEY=' + secrets.token_urlsafe(32))" > .env
-    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-    ```
+    Export runtime variables directly to shell session
+   ```bash
+   export SECRET_KEY=$(python3 -c "import secrets; print(secrets.token_urlsafe(32))")
+   # or
+   python3 -c "import secrets; print('SECRET_KEY=' + secrets.token_urlsafe(32))" > .env
+
+   # and then...
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+   ```
 4.  **Run Tests Locally:**
     
     ```bash
