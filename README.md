@@ -26,7 +26,7 @@ Before running the application, ensure your environment meets the following requ
 
 ### Linux (Ubuntu/Debian-based)
 * **Docker Engine** installed.
-* Your user added to the `docker` group to execute commands without `sudo`:
+* Add user to the docker group to execute commands without sudo:
     ```bash
     sudo usermod -aG docker $USER && newgrp docker
     ```
@@ -76,7 +76,6 @@ Follow this sequence to test endpoints (because the Swagger application enforces
 2. If you don’t already have a user, call `POST /register`
    - Provide `username` and `password`
    - Submit and confirm `201 Created`
-3. Locate the green **Authorize** button at the top right of the page
 
 ### Step 2: Acquire the Bearer Token
 1. Locate and click on the green **Authorize** button at the top right of the page
@@ -97,12 +96,11 @@ Note: a manual flow (without Authorize) can be executed by running /login, copyi
 To access the complete development environment:
 
 1. Open the project directory in **Visual Studio Code**.
-2. Ensure the vscode extension **Dev Containers** is active.
+2. Ensure the extension **Dev Containers** is active.
 3. execute from the command line:
    ```python3 -c "import secrets; print('SECRET_KEY=' + secrets.token_urlsafe(32))" > .env```
 4. Click the button in the bottom-left corner of VS Code ('Open a Remote Window') and select **"Reopen in Container"**.
-5. The devcontainer will automatically spin up, map your workspace, and initialize your local SQLite instance.
-6. Open a terminal within the devcontainer and type:
+5. Open a terminal within the devcontainer and type:
    ```bash
    uvicorn app.main:app --port 8000 --reload --host 0.0.0.0
    ```
@@ -110,7 +108,7 @@ To access the complete development environment:
    
 
 ### Strategy D: Running Locally (Without Containers)
-If you prefer to execute the application directly on your host machine's command line, follow this python setup pattern:
+If you prefer to execute the application without Docker, then:
 
 1.  **Create and Activate a Virtual Environment:**
     ```bash

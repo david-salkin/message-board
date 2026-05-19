@@ -29,7 +29,7 @@ class TokenData(BaseModel):
 	sub: str  # ignore all other fields in the token because only sub is required
 
 
-def get_hash_password(password: str) -> str:   
+def get_hash_password(password: str) -> str:
 	return pwd_context.hash(password)
 
 
