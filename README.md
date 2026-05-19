@@ -39,7 +39,7 @@ Before running the application, ensure your environment meets the following requ
 You can run, test, and develop using four strategies (depending on your toolchain):
 
 ### Strategy A: Automated Docker Scripts
-The repository includes three production-grade utility scripts that handle image builds, container lifecycles, and cryptographic security initialization automatically.
+The repository includes three utility scripts which handle image builds, container lifecycles, and security initialization automatically.
 
 1. **Build the Image:**
    ```bash
@@ -52,7 +52,7 @@ The repository includes three production-grade utility scripts that handle image
    ./docker_test.sh
    ```
 
-   *This runs the test suite inside an isolated container using an in-memory SQLite instance.*
+   *This executes the test suite inside an isolated container using an in-memory SQLite instance.*
 
 3. **Run server:**
 
@@ -65,6 +65,9 @@ The repository includes three production-grade utility scripts that handle image
    *The API is at `http://localhost:8000`. You can access the interactive documentation at `http://localhost:8000/docs`.*
 
 ### Strategy B: Swagger UI Manual Testing Workflow
+
+**Swagger UI:** Available at `http://localhost:8000/docs`. Swagger is a dynamic documentation suite generated automatically 
+from the application's OpenAPI specification, and includes a "Try it out" runtime client for rapid API testing and integration review.
 
 Follow this sequence to test endpoints (because the Swagger application enforces strict token-based authentication):
 
@@ -96,7 +99,7 @@ To access the complete development environment:
 1. Open the project directory in **Visual Studio Code**.
 2. Ensure the vscode extension **Dev Containers** is active.
 3. execute from the command line:
-   ```python3.11 -c "import secrets; print('SECRET_KEY=' + secrets.token_urlsafe(32))" > .env```
+   ```python3 -c "import secrets; print('SECRET_KEY=' + secrets.token_urlsafe(32))" > .env```
 4. Click the button in the bottom-left corner of VS Code ('Open a Remote Window') and select **"Reopen in Container"**.
 5. The devcontainer will automatically spin up, map your workspace, and initialize your local SQLite instance.
 6. Open a terminal within the devcontainer and type:
